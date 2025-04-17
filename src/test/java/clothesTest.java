@@ -75,7 +75,7 @@ public class clothesTest {
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
         Actions action = new Actions(chromeDriver);
         // navigate to clothes and click mens
-        chromeDriver.get("https://expert-motion.demo.prestashop.com/en/3-clothes");
+        chromeDriver.get("https://sweet-celery.demo.prestashop.com/en/3-clothes");
         WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
         Thread.sleep(5000);
         menButton.click();
@@ -102,10 +102,11 @@ public class clothesTest {
     public void viewClothingDetails() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
         Actions action = new Actions(chromeDriver);
-        chromeDriver.get("https://expert-motion.demo.prestashop.com/en/3-clothes");
+        chromeDriver.get("https://sweet-celery.demo.prestashop.com/en/3-clothes");
         // load clothes page
         WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
         menButton.click();
+        //check quickview details
         WebElement clothingThumbnail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"js-product-list\"]/div[1]/div/article/div/div[1]/a")));
         action.moveToElement(clothingThumbnail).perform();
         Thread.sleep(5000);
@@ -115,18 +116,35 @@ public class clothesTest {
         WebElement close = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"quickview-modal-1-1\"]/div/div/div[1]/button/span")));
         close.click();
     }
-//    @Test()
-//    public void changeClothingSpecs() throws InterruptedException {
-//        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
-//        chromeDriver.get("https://demo.prestashop.com/#/en/front");
-//        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
-//        Thread.sleep(2000);
-//        WebElement parentMenu = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"category-3\"]")));
-//        parentMenu.click();
-//        // load clothes page
-//        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
-//        menButton.click();
-//    }
+    @Test(priority = 4)
+    public void changeClothingSpecs() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
+
+        Actions action = new Actions(chromeDriver);
+        chromeDriver.get("https://sweet-celery.demo.prestashop.com/en/3-clothes");
+        // load clothes page
+        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
+        menButton.click();
+        //click on clothing
+        WebElement clothingThumbnail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"js-product-list\"]/div[1]/div/article/div/div[1]/a")));
+        clothingThumbnail.click();
+        Thread.sleep(5000);
+
+        WebElement colorChange = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"group_2\"]/li[2]/label/input")));
+        colorChange.click();
+        Thread.sleep(5000);
+        // Locate the select element
+        WebElement sizeDropdown = chromeDriver.findElement(By.id("group_1"));
+        // Create a Select object
+        Select selectSize = new Select(sizeDropdown);
+        // Select the "M" option by visible text or value
+        selectSize.selectByVisibleText("M");
+
+
+
+
+
+    }
 
 
 
