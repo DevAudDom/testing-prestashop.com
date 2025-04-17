@@ -99,7 +99,7 @@ public class SignupTest {
 
     @Test(dependsOnMethods = {"login"})
     public void contactUs() throws InterruptedException {
-        String filePath = "C:\\Users\\anton\\testing-cars.com\\resources\\Screenshot 2025-04-16 231754.png";
+        String filePath = "C:\\Users\\anton\\testing-cars.com\\src\\Resources\\CoolCat.png";
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
         chromeDriver.switchTo().defaultContent();
@@ -230,7 +230,7 @@ public class SignupTest {
     public void shoppingCart() throws InterruptedException {
         chromeDriver.get("https://demo.prestashop.com/#/en/front");
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
-        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
         Thread.sleep(12000);
         js.executeScript("window.scrollBy(0,800)");
@@ -251,46 +251,13 @@ public class SignupTest {
         checkout.click();
         Thread.sleep(1000);
         //Checkout testing
-        WebElement mister = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#customer-form > div > div:nth-child(1) > div.col-md-6.js-input-column.form-control-valign > label:nth-child(1) > span")));
-        mister.click();
+        WebElement address = wait.until(ExpectedConditions.elementToBeClickable(By.id("field-address1")));
+        address.sendKeys("123 ABC Ln");
         Thread.sleep(1000);
-        WebElement checkoutFirstName = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-firstname")));
-        checkoutFirstName.click();
+        js.executeScript("window.scrollBy(0,400)");
         Thread.sleep(1000);
-        checkoutFirstName.sendKeys("Daniel");
-        Thread.sleep(1000);
-        checkoutFirstName.sendKeys(Keys.ENTER);
-        WebElement checkoutLastName = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-lastname")));
-        checkoutLastName.click();
-        checkoutLastName.sendKeys("K");
-        Thread.sleep(1000);
-        checkoutLastName.sendKeys(Keys.ENTER);
-        WebElement emailCheckout = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-email")));
-        emailCheckout.click();
-        emailCheckout.sendKeys("danielk@gmail.com");
-        Thread.sleep(1000);
-        js.executeScript("window.scrollBy(0,600)");
-        Thread.sleep(1000);
-        WebElement TermsConditions = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#customer-form > div > div:nth-child(9) > div.col-md-6.js-input-column > span")));
-        TermsConditions.click();
-        Thread.sleep(1000);
-        WebElement privacy = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#customer-form > div > div:nth-child(11) > div.col-md-6.js-input-column > span")));
-        privacy.click();
-        Thread.sleep(1000);
-        WebElement continue1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#customer-form > footer > button")));
-        continue1.click();
-        Thread.sleep(1000);
-        WebElement address = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-address1")));
-        address.click();
-        Thread.sleep(1000);
-        address.sendKeys("1234 ABC Lane");
-        Thread.sleep(1000);
-        WebElement city = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-city")));
-        city.click();
-        Thread.sleep(1000);
+        WebElement city = wait.until(ExpectedConditions.elementToBeClickable(By.id("field-city")));
         city.sendKeys("Fort Myers");
-        Thread.sleep(1000);
-        js.executeScript("window.scrollBy(0,500)");
         Thread.sleep(1000);
         WebElement state = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-id_state")));
         state.click();
@@ -303,14 +270,22 @@ public class SignupTest {
         Thread.sleep(1000);
         zip.sendKeys("10101");
         Thread.sleep(1000);
-        WebElement continue2 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#delivery-address > div > footer > button")));
-        continue2.click();
+        WebElement country = wait.until(ExpectedConditions.elementToBeClickable(By.id("field-id_country")));
+        country.click();
         Thread.sleep(1000);
-        WebElement continue3 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#js-delivery > button")));
-        continue3.click();
-        Thread.sleep(2000);
-        WebElement termsofService = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#conditions-to-approve")));
-        termsofService.click();
+        WebElement US = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#field-id_country > option:nth-child(3)")));
+        US.click();
+        Thread.sleep(1000);
+        WebElement phone = wait.until(ExpectedConditions.elementToBeClickable(By.id("field-phone")));
+        phone.click();
+        Thread.sleep(1000);
+        WebElement Continue = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#delivery-address > div > footer > button")));
+        Continue.click();
+        Thread.sleep(1000);
+        WebElement Continue2 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#js-delivery > button")));
+        Continue2.click();
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("conditions_to_approve[terms-and-conditions]")));
+        checkbox.click();
         Thread.sleep(1000);
     }
 }
