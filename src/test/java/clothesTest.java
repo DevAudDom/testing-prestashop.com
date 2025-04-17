@@ -37,24 +37,25 @@ public class clothesTest {
         Thread.sleep(5000);
         menButton.click();
     }
-    @Test(priority = 2)
-    public void filterMensClothes() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
-        JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
-        Actions action = new Actions(chromeDriver);
-        chromeDriver.get("https://rabid-poison.demo.prestashop.com/en/3-clothes");
-        // Medium size filter
-//        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
-        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
-        Thread.sleep(5000);
-        menButton.click();
-        Thread.sleep(5000);
-        js.executeScript("window.scrollBy(0,500)");
-        Thread.sleep(1000);
-            // check medium size box
-        WebElement medButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@id=\"facet_15123\"]/li[2]/label/a")));
-        medButton.click();
+//    @Test(priority = 2)
+//    public void filterMensClothes() throws InterruptedException {
+//        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
+//        JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
+//        Actions action = new Actions(chromeDriver);
+//        chromeDriver.get("https://rabid-poison.demo.prestashop.com/en/3-clothes");
+//        // Medium size filter
+////        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
+//        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
+//        Thread.sleep(5000);
+//        menButton.click();
+//        Thread.sleep(5000);
+//
+//        js.executeScript("window.scrollBy(0,500)");
+//        Thread.sleep(1000);
+//            // check medium size box
+//        WebElement medButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                By.xpath("//*[@id=\"facet_15123\"]/li[2]/label/a")));
+//        medButton.click();
 //        //Black Shirt filter
 //        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
 //        Thread.sleep(5000);
@@ -67,33 +68,51 @@ public class clothesTest {
 //        js.executeScript("window.scrollBy(0,500)");
 //        WebElement inStockFilter = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"facet_93738\"]/li[2]/label/span")));
 //        inStockFilter.click();
+//    }
+    @Test(priority = 2)
+    public void sortByClothing() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
+        JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
+        Actions action = new Actions(chromeDriver);
+        // navigate to clothes and click mens
+        chromeDriver.get("https://expert-motion.demo.prestashop.com/en/3-clothes");
+        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
+        Thread.sleep(5000);
+        menButton.click();
+        Thread.sleep(5000);
+        // mens clothing has loaded
+        //click low to high
+        js.executeScript("window.scrollBy(0,250)");
+        Thread.sleep(2000);
+        WebElement sortByButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"js-product-list-top\"]/div[2]/div/div[1]/button")));
+        sortByButton.click();
+        WebElement lowToHighDDB = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"js-product-list-top\"]/div[2]/div/div[1]/div/a[5]")));
+        lowToHighDDB.click();
+        //click name
+        js.executeScript("window.scrollBy(0,250)");
+        wait.until(ExpectedConditions.elementToBeClickable(sortByButton));
+        Thread.sleep(2000);
+        WebElement sortByButton2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"js-product-list-top\"]/div[2]/div/div[1]/button")));
+        sortByButton2.click();
+        WebElement nameDD = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"js-product-list-top\"]/div[2]/div/div[1]/div/a[3]")));
+        nameDD.click();
+
+    }
+    @Test()
+    public void viewClothingDetails() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
+        Actions action = new Actions(chromeDriver);
+        chromeDriver.get("https://expert-motion.demo.prestashop.com/en/3-clothes");
+        // load clothes page
+        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
+        menButton.click();
+        WebElement clothingThumbnail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"js-product-list\"]/div[1]/div/article/div/div[1]/a")));
+        action.moveToElement(clothingThumbnail).perform();
+        Thread.sleep(5000);
+        WebElement quickView = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"js-product-list\"]/div[1]/div/article/div/div[1]/div/a")));
     }
 //    @Test()
-//    public void likeClothing() throws InterruptedException {
-//        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
-//        chromeDriver.get("https://demo.prestashop.com/#/en/front");
-//        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
-//        Thread.sleep(2000);
-//        WebElement parentMenu = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"category-3\"]")));
-//        parentMenu.click();
-//        // load clothes page
-//        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
-//        menButton.click();
-//    }
-//    @Test()
-//    public void preCheckoutClothingModifications() throws InterruptedException {
-//        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
-//        chromeDriver.get("https://demo.prestashop.com/#/en/front");
-//        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
-//        Thread.sleep(2000);
-//        WebElement parentMenu = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"category-3\"]")));
-//        parentMenu.click();
-//        // load clothes page
-//        WebElement menButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"left-column\"]/div[1]/ul/li[2]/ul/li[1]/a")));
-//        menButton.click();
-//    }
-//    @Test()
-//    public void enhanceAndSSClothingImage() throws InterruptedException {
+//    public void changeClothingSpecs() throws InterruptedException {
 //        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
 //        chromeDriver.get("https://demo.prestashop.com/#/en/front");
 //        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
@@ -106,54 +125,5 @@ public class clothesTest {
 //    }
 
 
-//    public void searchNewCar() throws InterruptedException {
-//        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
-//        chromeDriver.get("https://demo.prestashop.com/#/en/front");
-//
-//        try
-//        }
-//        catch (Exception createPlaylistException){
-//            System.out.println("Error occurred on locating element within 15 seconds. Error Message: " + createPlaylistException.getMessage());
-//        }
-//
-//
-//    @Test ()
-//    public void enterNewPassword() throws InterruptedException {
-//        Thread.sleep(2000); // wait for page to load
-//        WebElement newPassword = chromeDriver.findElement(By.id("new-password"));
-//        newPassword.sendKeys("123456789a");
-//        WebElement nextButton = chromeDriver.findElement(By.cssSelector(".Button-sc-qlcn5g-0.VsdHm.encore-text-body-medium-bold"));
-//        Thread.sleep(2000);
-//        nextButton.click();
-//    }
-//    @Test ()
-//    public void enterStep2Signup() throws InterruptedException {
-//        Thread.sleep(2000); // wait for page to load
-//        WebElement newName = chromeDriver.findElement(By.id("displayName"));
-//        newName.sendKeys("test name");
-//        WebElement DOBMonth = chromeDriver.findElement(By.id("month"));
-//        // use seleniums special select object and pass in element
-//        Select monthDD = new Select(DOBMonth);
-//        Thread.sleep(2000);
-//        monthDD.selectByValue("1");
-//        WebElement DOBDay = chromeDriver.findElement(By.id("day"));
-//        DOBDay.sendKeys("01");
-//        WebElement DOBYear = chromeDriver.findElement(By.id("year"));
-//        DOBYear.sendKeys("2000");
-//        WebElement gender = chromeDriver.findElement(By.xpath("//span[text()='Something else']"));
-//        gender.click();
-//        WebElement nextButton = chromeDriver.findElement(By.cssSelector(".Button-sc-qlcn5g-0.VsdHm.encore-text-body-medium-bold"));
-//        Thread.sleep(2000); // button seems not to get pressed unless we wait before
-//        nextButton.click();
-//    }
-//
-//    @Test ()
-//    public void enterStep3Signup() throws InterruptedException {
-//        Thread.sleep(2000); // wait for page to laod
-//        WebElement checkbox = chromeDriver.findElement(By.cssSelector(".Indicator-sc-1airx73-0.lhZnAn"));
-//        checkbox.click();
-//        WebElement signUpButton = chromeDriver.findElement(By.cssSelector(".ButtonInner-sc-14ud5tc-0.hvvTXU.encore-bright-accent-set"));
-//        Thread.sleep(2000); // button seems not to get pressed unless we wait before
-//        signUpButton.click();
-//    }
+
 }
