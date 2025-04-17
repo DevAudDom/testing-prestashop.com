@@ -98,7 +98,7 @@ public class clothesTest {
         nameDD.click();
 
     }
-    @Test()
+    @Test(priority = 3)
     public void viewClothingDetails() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
         Actions action = new Actions(chromeDriver);
@@ -110,6 +110,10 @@ public class clothesTest {
         action.moveToElement(clothingThumbnail).perform();
         Thread.sleep(5000);
         WebElement quickView = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"js-product-list\"]/div[1]/div/article/div/div[1]/div/a")));
+        quickView.click();
+        Thread.sleep(5000);
+        WebElement close = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"quickview-modal-1-1\"]/div/div/div[1]/button/span")));
+        close.click();
     }
 //    @Test()
 //    public void changeClothingSpecs() throws InterruptedException {
