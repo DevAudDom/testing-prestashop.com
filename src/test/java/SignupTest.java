@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeTest;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
 import java.time.Duration;
 
 
@@ -23,7 +25,7 @@ public class SignupTest {
     }
 
     @org.testng.annotations.Test
-    public void login() throws InterruptedException {
+    public void Signin() throws InterruptedException {
         chromeDriver.get("https://demo.prestashop.com/#/en/front");
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
@@ -72,10 +74,13 @@ public class SignupTest {
 
         chromeDriver.switchTo().defaultContent(); // get out of iframe
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive"))); // get back into iframe
-
         WebElement signOut = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#_desktop_user_info > div > a.logout.hidden-sm-down")));
         signOut.click();
         Thread.sleep(1000);
+    }
+    @Test
+            public void login() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
 
         WebElement login = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#_desktop_user_info > div > a > span")));
         login.click();
@@ -89,6 +94,10 @@ public class SignupTest {
         Thread.sleep(1000);
         WebElement loginButton = chromeDriver.findElement(By.id("submit-login"));
         loginButton.click();
+    }
+    @org.testng.annotations.Test
+    public void contactUs(){
+
     }
 }
 
