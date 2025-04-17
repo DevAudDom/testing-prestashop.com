@@ -25,7 +25,7 @@ public class SignupTest {
     }
 
     @org.testng.annotations.Test
-    public void Signin() throws InterruptedException {
+    public void Signup() throws InterruptedException {
         chromeDriver.get("https://demo.prestashop.com/#/en/front");
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
@@ -71,18 +71,15 @@ public class SignupTest {
         WebElement save = chromeDriver.findElement(By.cssSelector("#customer-form > footer > button"));
         save.click();
         Thread.sleep(1000);
-
-        chromeDriver.switchTo().defaultContent(); // get out of iframe
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive"))); // get back into iframe
         WebElement signOut = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#_desktop_user_info > div > a.logout.hidden-sm-down")));
         signOut.click();
         Thread.sleep(1000);
     }
-    @Test
-            public void login() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
 
-        WebElement login = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#_desktop_user_info > div > a > span")));
+    @Test(dependsOnMethods = {"Signup"})
+    public void login() throws InterruptedException {
+        Thread.sleep(1000);
+        WebElement login = chromeDriver.findElement(By.cssSelector("#_desktop_user_info > div > a > span"));
         login.click();
         Thread.sleep(1000);
         WebElement email = chromeDriver.findElement(By.id("field-email"));
@@ -94,10 +91,29 @@ public class SignupTest {
         Thread.sleep(1000);
         WebElement loginButton = chromeDriver.findElement(By.id("submit-login"));
         loginButton.click();
+        Thread.sleep(1000);
     }
-    @org.testng.annotations.Test
-    public void contactUs(){
 
+    @Test(dependsOnMethods = {"login"})
+    public void contactUs() throws InterruptedException {
+        String filePath = "C:\\Users\\anton\\testing-cars.com\\resources\\Screenshot 2025-04-16 231754.png";
+        JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
+        chromeDriver.switchTo().defaultContent();
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#contact-link > a"))).click();
+        Thread.sleep(1000);
+
+        WebElement chooseFile = chromeDriver.findElement(By.cssSelector("input[type='file']")); // changed to direct file input
+        chooseFile.sendKeys(filePath);
+        Thread.sleep(1000);
+
+        WebElement comment = chromeDriver.findElement(By.id("contactform-message"));
+        comment.sendKeys("I'm a cool cat");
+        WebElement send = chromeDriver.findElement(By.cssSelector("#content > section > form > footer > input.btn.btn-primary"));
+        send.click();
+        Thread.sleep(1000);
     }
 }
 
