@@ -3,16 +3,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import java.time.Duration;
-import org.openqa.selenium.Keys;
-
-
 
 
 public class SignupTest {
@@ -26,7 +23,6 @@ public class SignupTest {
         chromeDriver = new ChromeDriver();
         chromeDriver.manage().window().maximize(); // Maximize the window
     }
-
     @org.testng.annotations.Test(priority = 1)
     public void Signup() throws InterruptedException {
         chromeDriver.get("https://demo.prestashop.com/#/en/front");
@@ -99,7 +95,7 @@ public class SignupTest {
 
     @Test(dependsOnMethods = {"login"})
     public void contactUs() throws InterruptedException {
-        String filePath = "C:\\Users\\anton\\testing-cars.com\\src\\Resources\\CoolCat.png";
+        String filePath = "C:\\Users\\anton\\testing-prestashop\\src\\Resources\\CoolCat.png";
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(20));
         chromeDriver.switchTo().defaultContent();
@@ -178,7 +174,6 @@ public class SignupTest {
         WebElement quant = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#add-to-cart-or-refresh > div.product-add-to-cart.js-product-add-to-cart > div > div.qty > div > span.input-group-btn-vertical > button.btn.btn-touchspin.js-touchspin.bootstrap-touchspin-up > i")));
         quant.click();
         Thread.sleep(1000);
-        js.executeScript("window.scrollBy(0,250)");
     }
 
     @Test(dependsOnMethods = ("filteredProduct"))
@@ -193,12 +188,10 @@ public class SignupTest {
         Thread.sleep(2000);
         js.executeScript("window.scrollBy(0,500)");
         Thread.sleep(1000);
-        // Add item 1
         chromeDriver.findElement(By.xpath("/html/body/main/section/div/div/div[2]/section/section/div[3]/div[1]/div[1]/article/div/button")).click();
         Thread.sleep(1000);
         chromeDriver.findElement(By.xpath("/html/body/main/footer/div[2]/div/div[1]/div[4]/div[1]/div/div/div[2]/div/ul/li")).click();
         Thread.sleep(1000);
-        // Add item 2
         chromeDriver.findElement(By.xpath("/html/body/main/section/div/div/div[2]/section/section/div[3]/div[1]/div[3]/article/div/button/i")).click();
         Thread.sleep(1000);
         chromeDriver.findElement(By.xpath("/html/body/main/footer/div[2]/div/div[1]/div[4]/div[1]/div/div/div[2]/div/ul/li")).click();
@@ -209,14 +202,12 @@ public class SignupTest {
         chromeDriver.findElement(By.xpath("/html/body/main/footer/div[2]/div/div[1]/div[4]/div[1]/div/div/div[2]/div/ul/li")).click();
         Thread.sleep(1000);
 
-        // Navigate to Wishlist
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/footer/div[2]/div/div[1]/div[2]/ul/li[5]/a"))).click();
         Thread.sleep(1000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/section/div/div/div/section/div[1]/section/div/ul/li/a/p"))).click();
         Thread.sleep(2000);
 
-        // Delete an item
         chromeDriver.findElement(By.xpath("/html/body/main/section/div/div/div/section/div[1]/section/ul/li[1]/div/div/button[2]/i")).click();
         Thread.sleep(1000);
         chromeDriver.findElement(By.xpath("/html/body/main/footer/div[2]/div/div[1]/div[5]/div[1]/div/div/div[3]/button[2]")).click();
@@ -232,7 +223,7 @@ public class SignupTest {
         JavascriptExecutor js = (JavascriptExecutor) chromeDriver;
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("framelive")));
-        Thread.sleep(12000);
+        Thread.sleep(2000);
         js.executeScript("window.scrollBy(0,800)");
         Thread.sleep(1000);
         WebElement mug1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#content > section:nth-child(2) > div > div:nth-child(8) > article > div > div.thumbnail-top")));
@@ -250,7 +241,7 @@ public class SignupTest {
         WebElement checkout = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main > div > div.cart-grid-right.col-lg-4 > div.card.cart-summary > div.checkout.cart-detailed-actions.js-cart-detailed-actions.card-block > div")));
         checkout.click();
         Thread.sleep(1000);
-        //Checkout testing
+
         WebElement address = wait.until(ExpectedConditions.elementToBeClickable(By.id("field-address1")));
         address.sendKeys("123 ABC Ln");
         Thread.sleep(1000);
@@ -284,9 +275,15 @@ public class SignupTest {
         Thread.sleep(1000);
         WebElement Continue2 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#js-delivery > button")));
         Continue2.click();
-        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("conditions_to_approve[terms-and-conditions]")));
+        Thread.sleep(2000);
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#conditions-to-approve")));
         checkbox.click();
         Thread.sleep(1000);
+    }
+
+    @AfterTest
+    public void tearDown() {
+        chromeDriver.quit();
     }
 }
 
