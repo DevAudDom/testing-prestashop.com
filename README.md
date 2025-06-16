@@ -14,7 +14,7 @@ Clone the repository
 bash
 Copy
 Edit
-git clone https://github.com/DevAudDom/testing-cars.com.git
+git clone https://github.com/DevAudDom/testing-prestashop.com.git
 
 
 Where to write tests:
